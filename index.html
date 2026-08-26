@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ねぶた検定 3級｜NEBUTA LIFE</title>
+<meta name="description" content="青森ねぶた祭の物語と囃子、あなたはどこまで知ってる？ NEBUTA LIFE 非公式ファン検定・3級（全10問）">
+<meta property="og:title" content="ねぶた検定 3級｜NEBUTA LIFE">
+<meta property="og:description" content="青森ねぶた祭の物語と囃子、あなたはどこまで知ってる？ 全10問・合格すると認定証がもらえます。">
+<meta name="theme-color" content="#e65709">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --or:#e65709; --or2:#ff5035; --bk:#131313; --line:#2a2a2a; --muted:#8b8b8b; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{height:100%}
+  body{
+    min-height:100%;
+    font-family:"Lato","Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;
+    background:var(--bk); color:#fff; line-height:1.7; -webkit-font-smoothing:antialiased;
+    -webkit-tap-highlight-color:transparent; touch-action:manipulation; overscroll-behavior-y:none;
+    transition:background .25s ease, color .25s ease;
+  }
+  body.orange{background:var(--or);color:var(--bk)}
+  .wrap{position:relative;width:100%;margin:0 auto;min-height:100vh;min-height:100dvh;padding:calc(44px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;overflow-x:clip}
+  /* 画面が低い端末（iPhone SE等）は縦の余白を詰める */
+  @media (max-height:700px){
+    .wrap{padding-top:calc(32px + env(safe-area-inset-top))}
+    #start h1{font-size:38px} #start .giant{top:9vh}
+    #result .score b{font-size:160px}
+    .q{margin-top:28px;font-size:20px}
+  }
+  /* PCで開いたときはスマホ幅の枠で見せる */
+  @media (min-width:600px){
+    body, body.orange{background:#0c0c0c}
+    .wrap{max-width:430px;min-height:0;height:calc(100vh - 48px);max-height:932px;margin:24px auto;border-radius:28px;overflow-y:auto;overflow-x:clip;box-shadow:0 30px 80px rgba(0,0,0,.6);background:var(--bk);color:#fff}
+    body.orange .wrap{background:var(--or);color:var(--bk)}
+  }
+  .en{font-family:"Lato",sans-serif}
+  .brand{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.12em}
+  .brand b{font-family:"Lato",sans-serif;font-weight:900;letter-spacing:.22em;color:var(--or)}
+  body.orange .brand b, body.orange .brand span{color:var(--bk)}
+  .brand span.r{color:var(--muted)}
+  .hidden{display:none !important}
+  .grow{flex-grow:1}
+  .btn{display:flex;align-items:center;justify-content:center;width:100%;height:56px;border:0;border-radius:10px;font:inherit;font-weight:700;font-size:16px;letter-spacing:.04em;cursor:pointer;text-decoration:none;transition:transform .08s ease}
+  .btn:active{transform:scale(.985)}
+  .btn.primary{background:var(--or);color:var(--bk)}
+  body.orange .btn.primary{background:var(--bk);color:#fff}
+  .btn.outline{background:transparent;border:2px solid var(--bk);color:var(--bk);height:48px;font-size:14px}
+  body:not(.orange) .btn.outline{border-color:#3a3a3a;color:#fff}
+  .btn[disabled]{opacity:.4;pointer-events:none}
+
+  /* giant number motif */
+  .giant{position:absolute;right:-16px;font-family:"Lato",sans-serif;font-weight:900;line-height:.8;letter-spacing:-.06em;pointer-events:none;user-select:none}
+
+  /* ===== start ===== */
+  #start .giant{top:13vh;font-size:clamp(280px,104vw,440px);color:var(--bk)}
+  #start .hero{position:relative;display:flex;flex-direction:column;gap:12px;margin-top:auto}
+  #start .kicker{font-family:"Lato",sans-serif;font-weight:900;font-size:12px;letter-spacing:.3em}
+  #start h1{font-weight:900;font-size:44px;line-height:1.15}
+  #start .lead{font-size:14px;line-height:1.8}
+  #start .btn{position:relative;margin-top:28px}
+  #start .note{position:relative;font-size:11px;line-height:1.7;opacity:.75;margin-top:12px;text-align:center}
+
+  /* ===== quiz ===== */
+  #quiz .giant{top:-12px;font-size:200px;color:#1f1f1f}
+  #quiz .top{position:relative;display:flex;justify-content:space-between;align-items:baseline}
+  #quiz .top .num{display:flex;align-items:baseline;gap:6px}
+  #quiz .top .num b{font-family:"Lato",sans-serif;font-weight:900;font-size:28px;line-height:1;color:var(--or)}
+  #quiz .top .num span{font-family:"Lato",sans-serif;font-weight:700;font-size:13px;color:var(--muted)}
+  #quiz .top .live{font-size:12px;letter-spacing:.08em;color:var(--muted)}
+  .bar{position:relative;height:2px;background:var(--line);margin-top:16px}
+  .bar i{display:block;height:100%;width:0;background:var(--or);transition:width .35s ease}
+  .q{position:relative;font-weight:700;font-size:22px;line-height:1.55;margin-top:40px;text-wrap:pretty}
+  .opts{position:relative;display:flex;flex-direction:column;margin-top:28px;border-top:1px solid var(--line)}
+  .opt{display:flex;align-items:center;gap:16px;min-height:60px;padding:10px 0;border:0;border-bottom:1px solid var(--line);background:transparent;color:#fff;font:inherit;font-size:16px;text-align:left;cursor:pointer;width:100%}
+  .opt .k{position:relative;flex:0 0 28px;height:28px;border-radius:50%;border:1px solid #3a3a3a;display:grid;place-items:center;font-family:"Lato",sans-serif;font-weight:900;font-size:12px;color:#6f6f6f}
+  .opt .k svg{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+  .opt .t{flex-grow:1}
+  .opt .tag{font-size:11px;letter-spacing:.08em;color:#6f6f6f;display:none}
+  .opt:not([disabled]):active{background:rgba(255,255,255,.04)}
+  .opt[disabled]{cursor:default}
+  .opt[disabled]:not(.correct):not(.wrong){color:#6f6f6f}
+  .opt.correct .k{background:var(--or);border-color:var(--or);color:transparent}
+  .opt.correct .k svg.ok{display:block}
+  .opt.correct .t{font-weight:700}
+  .opt.correct .tag{display:block;color:var(--or)}
+  .opt.wrong .t{color:var(--muted);text-decoration:line-through}
+  .opt.wrong .k{color:transparent} .opt.wrong .k svg.ng{display:block}
+  .opt.wrong .tag{display:block}
+  .fb{position:relative;display:none;flex-direction:column;gap:10px;margin-top:28px}
+  .fb.show{display:flex;animation:fade .25s ease}
+  .fb .tagline{font-weight:700;font-size:14px;color:var(--or)}
+  .fb p{font-size:14px;line-height:1.85;color:#c9c9c9;text-wrap:pretty}
+  #quiz .btn{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom));margin-top:28px;box-shadow:0 -16px 24px -8px rgba(19,19,19,.9)}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  /* ===== result ===== */
+  #result .score{display:flex;align-items:baseline;gap:8px;margin-top:40px}
+  #result .score b{font-family:"Lato",sans-serif;font-weight:900;font-size:200px;line-height:.8;letter-spacing:-.06em}
+  #result .score span{font-family:"Lato",sans-serif;font-weight:900;font-size:22px}
+  #result .verdict{font-weight:900;font-size:30px;margin-top:20px}
+  #result .sub{font-size:14px;line-height:1.8}
+  body:not(.orange) #result .score b{color:var(--or)}
+  body:not(.orange) #result .sub{color:var(--muted)}
+  .field{display:flex;flex-direction:column;gap:8px;margin-top:36px}
+  .field label{font-size:11px;letter-spacing:.08em}
+  .field .row{display:flex;align-items:center;justify-content:space-between;height:48px;border-bottom:2px solid var(--bk)}
+  .field input{flex-grow:1;font:inherit;font-size:18px;font-weight:700;background:transparent;border:0;outline:none;color:var(--bk);min-width:0}
+  .field input::placeholder{color:rgba(19,19,19,.45)}
+  .field .row span{font-size:11px;opacity:.6;white-space:nowrap;margin-left:12px}
+  #result .btn{margin-top:20px}
+  .cert{display:none;margin-top:24px}
+  .cert.show{display:block;animation:fade .3s ease}
+  .cert img{width:100%;border-radius:6px;display:block}
+  .hint{font-size:11px;line-height:1.7;opacity:.7;text-align:center;margin-top:10px}
+  .links{margin-top:32px;border-top:1px solid rgba(19,19,19,.35);padding-top:20px;display:flex;flex-direction:column;gap:12px}
+  body:not(.orange) .links{border-top-color:var(--line)}
+  .links p{font-size:13px;line-height:1.7}
+  .links .rowbtn{display:flex;gap:10px}
+  .links .rowbtn .btn{flex:1 1 0;margin:0}
+  .foot{text-align:center;font-size:10px;letter-spacing:.06em;opacity:.6;margin-top:28px}
+</style>
+</head>
+<body class="orange">
+<div class="wrap">
+  <div class="brand"><b>NEBUTA LIFE</b><span class="r" id="brandR">非公式ファン検定</span></div>
+
+  <!-- ===== START ===== -->
+  <section id="start" class="grow" style="display:flex;flex-direction:column">
+    <div class="giant en">3</div>
+    <div class="hero">
+      <span class="kicker">NEBUTA KENTEI ・ 3級</span>
+      <h1>ねぶた検定</h1>
+      <p class="lead">青森ねぶた祭の物語と囃子、あなたはどこまで知ってる？ 10問・3択、7問で合格。</p>
+    </div>
+    <button class="btn primary" id="startBtn">検定をはじめる</button>
+    <p class="note">問題はNEBUTA LIFEの投稿で紹介した内容から出題しています。答えを見た後の解説が本編です。</p>
+  </section>
+
+  <!-- ===== QUIZ ===== -->
+  <section id="quiz" class="grow hidden" style="display:flex;flex-direction:column">
+    <div class="giant en" id="giantQ">01</div>
+    <div class="top">
+      <div class="num"><b id="qn">01</b><span>/ 10</span></div>
+      <span class="live" id="scoreLive">正解 0</span>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="q" id="qtext"></div>
+    <div class="opts" id="opts"></div>
+    <div class="fb" id="fb">
+      <div class="tagline" id="fbTag"></div>
+      <p id="fbText"></p>
+    </div>
+    <div class="grow"></div>
+    <button class="btn primary" id="nextBtn" disabled>次の問題へ</button>
+  </section>
+
+  <!-- ===== RESULT ===== -->
+  <section id="result" class="grow hidden" style="display:flex;flex-direction:column">
+    <div class="score"><b id="finalScore">0</b><span>/ 10</span></div>
+    <div class="verdict" id="verdict"></div>
+    <p class="sub" id="verdictSub"></p>
+
+    <div id="passArea">
+      <div class="field">
+        <label for="nick">認定証に入れるニックネーム</label>
+        <div class="row"><input type="text" id="nick" maxlength="8" placeholder="ねぶた太郎" autocomplete="off" enterkeyhint="done" autocapitalize="off"><span>8文字まで</span></div>
+      </div>
+      <button class="btn primary" id="certBtn">認定証をつくる</button>
+      <div class="cert" id="certWrap">
+        <img id="certImg" alt="ねぶた検定3級 認定証">
+        <button class="btn primary" id="saveBtn">画像を保存・シェアする</button>
+        <p class="hint" id="saveHint">保存できないときは、画像を長押しして「写真に追加」</p>
+      </div>
+    </div>
+
+    <div id="failArea" class="hidden">
+      <button class="btn primary" id="retryBtn">解説を読んで、もう一度</button>
+    </div>
+
+    <div class="grow"></div>
+    <div class="links">
+      <p>2級の問題と次の企画は、LINEの人にだけ届けます。</p>
+      <div class="rowbtn">
+        <a class="btn outline" id="lineBtn" href="#" target="_blank" rel="noopener">LINEで2級を待つ</a>
+        <a class="btn outline" id="igBtn" href="https://www.instagram.com/nebuta_life/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <p class="foot">NEBUTA LIFE ｜ 青森ねぶた祭 非公式ファン検定</p>
+  </section>
+</div>
+
+<canvas id="cv" width="1080" height="1920" class="hidden"></canvas>
+
+<script>
+/* ====== 設定（ここだけ書き換えればOK） ====== */
+const CONFIG = {
+  LINE_URL: "",                       // LINE公式アカウントの友だち追加URL（https://lin.ee/xxxx）。空ならボタン非表示
+  IG_URL: "https://www.instagram.com/nebuta_life/",
+  PASS_LINE: 7,                       // 合格ライン（正解数）
+  LEVEL: "3級",
+  LEVEL_NUM: "3",                     // 巨大数字に使う
+};
+
+/* ====== 問題（出典: 投稿済みキャプション） ====== */
+const QUESTIONS = [
+  { q:"ねぶた囃子は3つの楽器でできています。笛・太鼓と、あとひとつは？",
+    a:["三味線","手振り鉦","尺八"], c:1,
+    e:"笛が旋律をつくり、太鼓が体の芯に響き、鉦が全体を明るく引き上げる。3つの音が重なって、青森の夏の夜ができています。" },
+  { q:"ねぶたが小屋へ帰っていくときに流れる、ゆっくりした囃子の名前は？",
+    a:["帰り囃子","戻り囃子","終い囃子"], c:1,
+    e:"街を練り歩くときの勇壮な進行囃子に対して、帰り道に鳴るのが「戻り囃子」。同じ楽器、同じ囃子方なのに、どこか切ない音です。" },
+  { q:"「なぬかび囃子」が聞けるのはいつ？",
+    a:["初日 8月2日の夜","最終日 8月7日の昼運行の終わり","毎晩の運行の終わり"], c:1,
+    e:"8月7日の昼運行の終わりに、一部の団体が演奏することがある囃子。毎年必ず聞けるわけではない、その場に居合わせた人だけの音です。" },
+  { q:"青森の言葉「じゃわめぐ」。意味にいちばん近いのは？",
+    a:["一瞬でびっくりする","心がじわじわ高ぶってくる","疲れて眠くなる"], c:1,
+    e:"囃子の音が聞こえてくると、青森の人はそわそわして仕事が手につかなくなる。あの、じわじわ高ぶっていく感じが「じゃわめぐ」です。" },
+  { q:"運行は長いと2時間半ほど。その間、囃子方はどうやって演奏している？",
+    a:["座って演奏する","歩きながら演奏する","車に乗って演奏する"], c:1,
+    e:"笛も鉦も歩きながら鳴らし続け、太鼓は台に載せて人が押しながら進みます。交代しながら音をつないでいるので、観客席では途切れずに聞こえます。" },
+  { q:"2026年「道成寺」（北村麻子）。恋に裏切られた清姫は、何の姿に変わっていく？",
+    a:["鬼","大蛇","炎"], c:1,
+    e:"約束を破った僧・安珍を追い、清姫の身体は少しずつ大蛇に変わっていくと伝わっています。ねぶたをよく見ると、清姫の着物には蛇の姿が隠れています。" },
+  { q:"2026年「義賊烈伝 石川五右衛門」。釜の上で五右衛門が高く掲げているのは？",
+    a:["盗んだ宝","我が子","自分の刀"], c:1,
+    e:"釜茹での刑のなか、愛児・五郎市を頭の上に掲げた姿と伝わっています。一刻でも長くこの子を生かすために。泥棒の「罪」ではなく、父親の「覚悟」を描いた一台です。" },
+  { q:"2026年「怪談 耳無し芳一」。芳一が毎晩琵琶を弾いていた場所は、じつは？",
+    a:["殿の屋敷の広間","平家一門の墓場","お寺の本堂"], c:1,
+    e:"目の見えない芳一が「殿の屋敷」と思って通っていた先は、平家一門の墓場。亡霊たちに向かって琵琶を弾いていた、と伝わっています。" },
+  { q:"2021年、青森ねぶた祭は中止になりました。それでも最後までねぶたを作り切った団体は？",
+    a:["0団体","9団体","22団体すべて"], c:1,
+    e:"中止が決まったのは6月。それでも作るのをやめなかった団体が9つありました。観客ゼロの青い海公園で灯がともり、初めてライブ配信されました。" },
+  { q:"ねぶたが街を運行して動いている姿を見られるのは、1年のうち何日間？",
+    a:["3日間","6日間","1か月"], c:1,
+    e:"青森ねぶた祭は毎年8月2日〜7日。街を動くねぶたに会えるのは、この六日間だけです。" },
+];
+
+/* ====== ロジック ====== */
+const $ = s => document.querySelector(s);
+const KEYS = ["A","B","C"];
+const OK_SVG = '<svg class="ok" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#131313" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
+const NG_SVG = '<svg class="ng" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b8b8b" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+let idx = 0, score = 0, order = [];
+const pad = n => String(n).padStart(2,"0");
+
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function show(id, orange){
+  ["start","quiz","result"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id));
+  document.body.classList.toggle("orange", !!orange);
+  document.querySelector('meta[name=theme-color]').setAttribute("content", orange ? "#e65709" : "#131313");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function startQuiz(){
+  idx=0; score=0;
+  order = QUESTIONS.map(q=>{ const ix=shuffle([0,1,2]); return {...q, opts: ix.map(i=>({t:q.a[i], ok:i===q.c}))}; });
+  $("#brandR").textContent = CONFIG.LEVEL;
+  show("quiz", false); render();
+}
+function render(){
+  const q=order[idx];
+  $("#qn").textContent=pad(idx+1); $("#giantQ").textContent=pad(idx+1);
+  $("#scoreLive").textContent="正解 "+score;
+  $("#bar").style.width=((idx)/QUESTIONS.length*100)+"%";
+  $("#qtext").textContent=q.q;
+  const box=$("#opts"); box.innerHTML="";
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement("button"); b.className="opt"; b.type="button";
+    b.innerHTML=`<span class="k">${KEYS[i]}${OK_SVG}${NG_SVG}</span><span class="t">${o.t}</span><span class="tag"></span>`;
+    b.onclick=()=>answer(i); box.appendChild(b);
+  });
+  $("#fb").classList.remove("show");
+  $("#nextBtn").disabled=true;
+  $("#nextBtn").textContent = idx===QUESTIONS.length-1 ? "結果を見る" : "次の問題へ";
+}
+function answer(i){
+  const q=order[idx]; const btns=[...document.querySelectorAll(".opt")];
+  btns.forEach((b,k)=>{
+    b.disabled=true;
+    if(q.opts[k].ok){ b.classList.add("correct"); b.querySelector(".tag").textContent="正解"; }
+    else if(k===i){ b.classList.add("wrong"); b.querySelector(".tag").textContent="あなたの回答"; }
+  });
+  const ok=q.opts[i].ok; if(ok) score++;
+  $("#fbTag").textContent= ok ? "正解！" : "おしい。正解は「"+q.opts.find(o=>o.ok).t+"」";
+  $("#fbText").textContent=q.e;
+  $("#scoreLive").textContent="正解 "+score;
+  $("#bar").style.width=((idx+1)/QUESTIONS.length*100)+"%";
+  $("#fb").classList.add("show");
+  $("#nextBtn").disabled=false;
+  setTimeout(()=>$("#nextBtn").scrollIntoView({behavior:"smooth",block:"end"}),60);
+}
+function next(){ if(idx<QUESTIONS.length-1){ idx++; render(); } else finish(); }
+function finish(){
+  const pass = score>=CONFIG.PASS_LINE;
+  $("#brandR").textContent = CONFIG.LEVEL+" 結果";
+  $("#finalScore").textContent=score;
+  $("#verdict").textContent= pass ? CONFIG.LEVEL+" 合格" : "あと"+(CONFIG.PASS_LINE-score)+"問";
+  $("#verdictSub").textContent= pass ? "ねぶたの物語と囃子、しっかり届いています。" : "解説を読んだ今なら、きっと届きます。";
+  $("#passArea").classList.toggle("hidden",!pass);
+  $("#failArea").classList.toggle("hidden",pass);
+  $("#certWrap").classList.remove("show");
+  show("result", pass);
+}
+
+/* ====== 認定証（Canvas 1080x1920 = ストーリーズ向け／黒地×巨大数字） ====== */
+let certBlob=null;
+async function makeCert(){
+  const nick=($("#nick").value||"").trim() || "ねぶた好き";
+  try{ await document.fonts.load('900 80px "Noto Sans JP"'); await document.fonts.load('900 40px "Lato"'); }catch(e){}
+  const cv=$("#cv"), x=cv.getContext("2d"), W=cv.width, H=cv.height;
+  const jp='"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif', en='"Lato","Noto Sans JP",sans-serif';
+  const OR="#e65709", BK="#131313";
+  x.fillStyle=BK; x.fillRect(0,0,W,H);
+  // 巨大数字（右上に食い込む）
+  x.save(); x.textAlign="right"; x.textBaseline="alphabetic";
+  x.fillStyle=OR; x.font='900 1250px '+en; x.letterSpacing="-70px";
+  x.fillText(CONFIG.LEVEL_NUM, W+70, 1040);
+  x.restore();
+  // 左下のテキストブロック
+  x.textAlign="left";
+  x.fillStyle=OR; x.font='900 34px '+en; x.letterSpacing="10px"; x.fillText("NEBUTA LIFE 非公式ファン検定",96,1240);
+  x.fillStyle="#fff"; x.font='900 118px '+jp; x.letterSpacing="0px";
+  x.fillText("ねぶた検定",96,1385); x.fillText(CONFIG.LEVEL+" 合格",96,1525);
+  x.fillStyle="#fff"; x.font='700 66px '+jp; x.fillText(nick,96,1660);
+  const dt=new Date(), ds=dt.getFullYear()+"."+String(dt.getMonth()+1).padStart(2,"0")+"."+String(dt.getDate()).padStart(2,"0");
+  x.fillStyle="#8b8b8b"; x.font='700 34px '+en; x.letterSpacing="4px";
+  x.fillText(score+" / 10  ・  "+ds+"  ・  @nebuta_life",96,1735);
+  // 上部の細いブランド
+  x.fillStyle=OR; x.font='900 30px '+en; x.letterSpacing="8px"; x.fillText("NEBUTA LIFE",96,160);
+  const url=cv.toDataURL("image/png");
+  $("#certImg").src=url; $("#certWrap").classList.add("show");
+  certBlob = await (await fetch(url)).blob();
+  setTimeout(()=>$("#certWrap").scrollIntoView({behavior:"smooth",block:"start"}),80);
+}
+async function saveCert(){
+  if(!certBlob) return;
+  const file=new File([certBlob],"nebuta_kentei_"+CONFIG.LEVEL+".png",{type:"image/png"});
+  if(navigator.canShare && navigator.canShare({files:[file]})){
+    try{ await navigator.share({files:[file], title:"ねぶた検定 "+CONFIG.LEVEL+" 合格"}); return; }catch(e){ if(e.name==="AbortError") return; }
+  }
+  const a=document.createElement("a"); a.href=$("#certImg").src; a.download=file.name; document.body.appendChild(a); a.click(); a.remove();
+}
+
+/* ====== 初期化 ====== */
+$("#startBtn").onclick=startQuiz;
+$("#nextBtn").onclick=next;
+$("#retryBtn").onclick=startQuiz;
+$("#certBtn").onclick=makeCert;
+$("#saveBtn").onclick=saveCert;
+$("#nick").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); makeCert(); } });
+if(CONFIG.LINE_URL){ $("#lineBtn").href=CONFIG.LINE_URL; } else { $("#lineBtn").style.display="none"; }
+$("#igBtn").href=CONFIG.IG_URL;
+if(/\bLine\//i.test(navigator.userAgent)){ $("#saveHint").textContent="LINEの中で開いている場合は、右上の「…」→「他のアプリで開く」でブラウザから保存できます。"; }
+</script>
+</body>
+</html>
