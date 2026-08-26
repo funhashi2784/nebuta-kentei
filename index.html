@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ねぶた検定 3級｜NEBUTA LIFE</title>
-<meta name="description" content="青森ねぶた祭の物語と囃子、あなたはどこまで知ってる？ NEBUTA LIFE 非公式ファン検定・3級（全10問）">
+<meta name="description" content="青森ねぶた祭の物語・囃子・つくり方、どこまで知ってる？ NEBUTA LIFE 非公式ファン検定・3級（10問）">
 <meta property="og:title" content="ねぶた検定 3級｜NEBUTA LIFE">
 <meta property="og:description" content="青森ねぶた祭の物語と囃子、あなたはどこまで知ってる？ 全10問・合格すると認定証がもらえます。">
 <meta name="theme-color" content="#e65709">
@@ -27,7 +27,7 @@
   /* 画面が低い端末（iPhone SE等）は縦の余白を詰める */
   @media (max-height:700px){
     .wrap{padding-top:calc(32px + env(safe-area-inset-top))}
-    #start h1{font-size:38px} #start .giant{top:9vh}
+    #start h1{font-size:38px} #start .giant{top:9vh} #start .badge{width:104px;height:104px;margin-top:20px}
     #result .score b{font-size:160px}
     .q{margin-top:28px;font-size:20px}
   }
@@ -61,8 +61,10 @@
   #start .kicker{font-family:"Lato",sans-serif;font-weight:900;font-size:12px;letter-spacing:.3em}
   #start h1{font-weight:900;font-size:44px;line-height:1.15}
   #start .lead{font-size:14px;line-height:1.8}
-  #start .btn{position:relative;margin-top:28px}
-  #start .note{position:relative;font-size:11px;line-height:1.7;opacity:.75;margin-top:12px;text-align:center}
+  #start .meta{font-family:"Lato","Noto Sans JP",sans-serif;font-weight:700;font-size:12px;letter-spacing:.04em;opacity:.8}
+  #start .badge{position:relative;width:128px;height:128px;margin-top:28px;color:var(--bk);}
+  #start .btn{position:relative;margin-top:24px}
+  #start .note{position:relative;font-family:"Lato","Noto Sans JP",sans-serif;font-size:10px;letter-spacing:.14em;opacity:.65;margin-top:12px;text-align:center}
 
   /* ===== quiz ===== */
   #quiz .giant{top:-12px;font-size:200px;color:#1f1f1f}
@@ -131,13 +133,30 @@
   <!-- ===== START ===== -->
   <section id="start" class="grow" style="display:flex;flex-direction:column">
     <div class="giant en">3</div>
+    <svg class="badge" viewBox="0 0 120 120" aria-hidden="true">
+      <defs><path id="ring" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+      <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="2"/>
+      <text font-family="Lato,sans-serif" font-weight="900" font-size="8.6" letter-spacing="2.2" fill="currentColor"><textPath href="#ring">NEBUTA KENTEI · AOMORI · NEBUTA KENTEI · AOMORI ·</textPath></text>
+      <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M60 34 v6"/><circle cx="60" cy="43" r="3"/>
+        <path d="M74 54 C 78 42, 86 34, 96 30 C 94 42, 88 54, 80 62"/>
+        <path d="M78 40 C 84 36, 88 33, 92 32" stroke-width="1.6"/><path d="M82 48 C 86 43, 89 40, 93 38" stroke-width="1.6"/>
+        <circle cx="60" cy="70" r="22"/>
+        <path d="M40 62 Q60 68 80 62" stroke-width="1.6"/><path d="M39 72 Q60 78 81 72" stroke-width="1.6"/><path d="M60 48 V 92" stroke-width="1.6"/>
+        <path d="M44 86 C 40 92, 38 96, 40 100 C 44 98, 47 94, 48 90"/>
+        <path d="M76 86 C 80 92, 82 96, 80 100 C 76 98, 73 94, 72 90"/>
+      </g>
+      <circle cx="52" cy="67" r="2.6" fill="currentColor"/><circle cx="68" cy="67" r="2.6" fill="currentColor"/>
+      <path d="M56 76 q4 3 8 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
     <div class="hero">
       <span class="kicker">NEBUTA KENTEI ・ 3級</span>
       <h1>ねぶた検定</h1>
-      <p class="lead">青森ねぶた祭の物語と囃子、あなたはどこまで知ってる？ 10問・3択、7問で合格。受けるたびに問題が変わります。</p>
+      <p class="lead">物語、囃子、つくり方。どこまで知ってる？</p>
+      <p class="meta">10問・3択 ／ 70点で合格 ／ 毎回ちがう問題</p>
     </div>
     <button class="btn primary" id="startBtn">検定をはじめる</button>
-    <p class="note">問題はNEBUTA LIFEの投稿で紹介した内容から出題しています。答えを見た後の解説が本編です。</p>
+    <p class="note">NEBUTA LIFE 非公式ファン検定</p>
   </section>
 
   <!-- ===== QUIZ ===== -->
@@ -160,7 +179,7 @@
 
   <!-- ===== RESULT ===== -->
   <section id="result" class="grow hidden" style="display:flex;flex-direction:column">
-    <div class="score"><b id="finalScore">0</b><span id="ftotal">/ 10</span></div>
+    <div class="score"><b id="finalScore">0</b><span id="ftotal">点</span></div>
     <div class="verdict" id="verdict"></div>
     <p class="sub" id="verdictSub"></p>
 
@@ -202,7 +221,8 @@ const CONFIG = {
   IG_URL: "https://www.instagram.com/nebuta_life/",
   PER_ROUND: 10,                      // 1回の出題数
   MIX: {1:4, 2:6},                    // 難易度ごとの出題数（lv1=やさしい, lv2=ふつう）。lv3は2級用で3級には出ない
-  PASS_LINE: 7,                       // 合格ライン（正解数）
+  PASS_LINE: 7,                       // 合格ライン（正解数。10問なら70点）
+  FULL_SCORE: 100,                    // 満点
   LEVEL: "3級",
   LEVEL_NUM: "3",                     // 巨大数字に使う
 };
@@ -316,6 +336,56 @@ const QUESTIONS = [
   { lv:1, q:"ねぶた囃子で、メロディー（旋律）をつくっている楽器は？",
     a:["太鼓","笛","鉦"], c:1,
     e:"笛が旋律をつくり、太鼓が体の芯に響き、鉦が全体を明るく引き上げる。三つの音が重なると、その場の空気がぐっと祭りになります。" },
+
+  /* ---- ねぶたの基礎知識（作り方・祭りの仕組み）2026/8/26追加。出典: nebuta.jp（Q&A／ねぶたができるまで／跳人参加方法）＋Yuto確認済み事実 ---- */
+  { lv:1, q:"跳人（ハネト）として祭りに参加するには？",
+    a:["団体に事前登録が必要","衣装（正装）を着ていれば誰でも、申込なしで参加できる","青森市民だけが参加できる"], c:1,
+    e:"事前の登録も当日の受付もありません。花笠・白地の浴衣・タスキ・白足袋と草履の正装で、出発前のねぶたの列に加わればOK。衣装はレンタルもあります。" },
+  { lv:1, q:"ねぶたの掛け声「ラッセラー」。言うのは誰？",
+    a:["鉦の担当だけ","ねぶた師だけ","跳人も囃子も観客も、みんな"], c:2,
+    e:"跳人も、囃子方も、沿道で見ている人も。声を出した瞬間から、見物ではなく祭りの側に入ります。" },
+  { lv:2, q:"「ラッセラー」の由来と伝わっているのは？",
+    a:["「走れ」がなまった","「（酒やろうそくを）いっぱい出せ」がなまった","「楽しい」の津軽弁"], c:1,
+    e:"「いっぱい出せ」→「イッペラッセ」→「ラッセ」が残った、と公式サイトに書かれています。もともとは、ねぶたを回すためのお酒やろうそくを求める声だったそうです。" },
+  { lv:1, q:"祭りの当日に雨が降ったら、ねぶたの運行はどうなる？",
+    a:["中止になる","翌日に延期される","大きなビニールをかけて運行する"], c:2,
+    e:"雨でも中止はしません。ねぶたに大きなビニールをかけたまま街を進みます。ビニール越しの灯りは、それはそれで絶景です。" },
+  { lv:2, q:"雨の日にねぶたにビニールをかける理由。紙が傷むのを防ぐほかに、もうひとつは？",
+    a:["染料が色落ちするのを防ぐ","灯りを強くするため","重さを軽くするため"], c:0,
+    e:"紙が傷むことと、色が流れてしまうこと。ひと夏をかけて色をつけたねぶたを、両方から守っています。" },
+  { lv:1, q:"街を進むねぶたは、何の力で動いている？",
+    a:["エンジンつきの車","人が手で引いている","レールの上を走っている"], c:1,
+    e:"ロープを握った引き手が、人の力で引いています。4トンのねぶたが交差点でぐるりと回るのも、人の手です。" },
+  { lv:2, q:"大型ねぶたの重さは、およそ？",
+    a:["400キロ","4トン","40トン"], c:1,
+    e:"公式サイトによると幅9m・奥行7m・高さ5m（台車を含む）、重さ約4トン。これを人が引いて、街を練り歩きます。" },
+  { lv:2, q:"大型ねぶたの幅は、およそ？",
+    a:["3メートル","9メートル","20メートル"], c:1,
+    e:"幅9m・奥行7m・高さ5m。道路いっぱいに広がる大きさなので、運行コースの幅に合わせて作られています。" },
+  { lv:2, q:"ねぶたの骨組みに貼られているのは、何？",
+    a:["布","紙","薄いプラスチック"], c:1,
+    e:"針金で組んだ骨組みに、紙を貼っています。新聞紙の片面ほどの大きさの紙を、1台で約2,500枚使うそうです。" },
+  { lv:2, q:"大型ねぶた1台に使う紙は、およそ何枚？（新聞紙の片面ほどの大きさ）",
+    a:["約250枚","約2,500枚","約25,000枚"], c:1,
+    e:"約2,500枚。一枚ずつ貼っていくので、紙はりだけでも大仕事です。" },
+  { lv:2, q:"ねぶたの本格的な制作が始まるのは、いつごろ？",
+    a:["1月","5月半ば","7月末"], c:1,
+    e:"公式サイトによると、本格制作は5月半ばから約3か月。完成するのは祭りの数日前です。" },
+  { lv:2, q:"ねぶたの制作工程。骨組みに「紙はり」をした次に行うのは？",
+    a:["色付け","書割（墨で線を描く）","台上げ"], c:1,
+    e:"公式サイトの工程は、骨組み→紙はり→書割（墨書き）→ろう書き→色付け→台上げ。墨で線を描いてから、ロウで光の線を入れ、最後に色をつけます。" },
+  { lv:2, q:"完成したねぶたを台車に載せる作業の名前は？",
+    a:["小屋がけ","台上げ","火入れ"], c:1,
+    e:"「台上げ」。小屋の中で大勢が声を合わせて持ち上げ、台車に載せます。この瞬間から、ねぶたは街へ出る姿になります。" },
+  { lv:2, q:"祭りの期間中、ねぶたを制作した小屋が並ぶ場所の名前は？",
+    a:["ラッセランド","ねぶたヴィレッジ","ハネトパーク"], c:0,
+    e:"青い海公園に並ぶ制作小屋の一帯が「ラッセランド」。制作中のねぶたを見学できる、祭り前のもうひとつの見どころです。" },
+  { lv:2, q:"祭りが終わったあと、賞をとったねぶたを一年間見られる施設は？",
+    a:["ねぶたの家 ワ・ラッセ","青森県立美術館","三内丸山遺跡"], c:0,
+    e:"青森駅のすぐそばにある「ねぶたの家 ワ・ラッセ」。祭りのあとも、灯りの入ったねぶたに会えます。" },
+  { lv:2, q:"最終日の8月7日。この日の運行は、ほかの日と何が違う？",
+    a:["夜の運行がもう一回ある","昼に運行して、夜は花火と海上運行","運行はなく花火だけ"], c:1,
+    e:"8月2日〜6日は夜の運行、7日だけは昼の運行。夜は青森港で花火大会と、ねぶたの海上運行があります。" },
 ];
 
 
@@ -324,7 +394,7 @@ const $ = s => document.querySelector(s);
 const KEYS = ["A","B","C"];
 const OK_SVG = '<svg class="ok" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#131313" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
 const NG_SVG = '<svg class="ng" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b8b8b" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
-let idx = 0, score = 0, order = [];
+let idx = 0, score = 0, order = [], lastPts = 0;
 const pad = n => String(n).padStart(2,"0");
 
 function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
@@ -347,7 +417,7 @@ function startQuiz(){
 function render(){
   const q=order[idx];
   $("#qn").textContent=pad(idx+1); $("#giantQ").textContent=pad(idx+1); $("#qtotal").textContent="/ "+order.length;
-  $("#scoreLive").textContent="正解 "+score;
+  $("#scoreLive").textContent=Math.round(score*CONFIG.FULL_SCORE/order.length)+"点";
   $("#bar").style.width=((idx)/order.length*100)+"%";
   $("#qtext").textContent=q.q;
   const box=$("#opts"); box.innerHTML="";
@@ -370,7 +440,7 @@ function answer(i){
   const ok=q.opts[i].ok; if(ok) score++;
   $("#fbTag").textContent= ok ? "正解！" : "おしい。正解は「"+q.opts.find(o=>o.ok).t+"」";
   $("#fbText").textContent=q.e;
-  $("#scoreLive").textContent="正解 "+score;
+  $("#scoreLive").textContent=Math.round(score*CONFIG.FULL_SCORE/order.length)+"点";
   $("#bar").style.width=((idx+1)/order.length*100)+"%";
   $("#fb").classList.add("show");
   $("#nextBtn").disabled=false;
@@ -380,9 +450,11 @@ function next(){ if(idx<order.length-1){ idx++; render(); } else finish(); }
 function finish(){
   const pass = score>=CONFIG.PASS_LINE;
   $("#brandR").textContent = CONFIG.LEVEL+" 結果";
-  $("#finalScore").textContent=score; $("#ftotal").textContent="/ "+order.length;
-  $("#verdict").textContent= pass ? CONFIG.LEVEL+" 合格" : "あと"+(CONFIG.PASS_LINE-score)+"問";
-  $("#verdictSub").textContent= pass ? "ねぶたの物語と囃子、しっかり届いています。" : "解説を読んだ今なら、きっと届きます。";
+  const per = CONFIG.FULL_SCORE/order.length, pts = Math.round(score*per), passPts = Math.round(CONFIG.PASS_LINE*per);
+  lastPts = pts;
+  $("#finalScore").textContent=pts; $("#ftotal").textContent="点";
+  $("#verdict").textContent= pass ? CONFIG.LEVEL+" 合格" : "あと"+(passPts-pts)+"点";
+  $("#verdictSub").textContent= (order.length+"問中"+score+"問正解。")+(pass ? "ねぶたの物語と囃子、しっかり届いています。" : "合格ラインは"+passPts+"点。解説を読んだ今なら、きっと届きます。");
   $("#passArea").classList.toggle("hidden",!pass);
   $("#failArea").classList.toggle("hidden",pass);
   $("#certWrap").classList.remove("show");
@@ -408,10 +480,12 @@ async function makeCert(){
   x.fillStyle=OR; x.font='900 34px '+en; x.letterSpacing="10px"; x.fillText("NEBUTA LIFE 非公式ファン検定",96,1240);
   x.fillStyle="#fff"; x.font='900 118px '+jp; x.letterSpacing="0px";
   x.fillText("ねぶた検定",96,1385); x.fillText(CONFIG.LEVEL+" 合格",96,1525);
-  x.fillStyle="#fff"; x.font='700 66px '+jp; x.fillText(nick,96,1660);
+  x.fillStyle="#fff"; x.font='700 66px '+jp; x.fillText(nick,96,1640);
   const dt=new Date(), ds=dt.getFullYear()+"."+String(dt.getMonth()+1).padStart(2,"0")+"."+String(dt.getDate()).padStart(2,"0");
-  x.fillStyle="#8b8b8b"; x.font='700 34px '+en; x.letterSpacing="4px";
-  x.fillText(score+" / "+order.length+"  ・  "+ds+"  ・  @nebuta_life",96,1735);
+  x.fillStyle=OR; x.font='900 44px '+en; x.letterSpacing="2px"; x.fillText(lastPts+"点",96,1718);
+  const w=x.measureText(lastPts+"点").width;
+  x.fillStyle="#8b8b8b"; x.font='700 30px '+jp; x.letterSpacing="2px"; x.fillText("  ・  "+order.length+"問中"+score+"問正解  ・  "+ds,96+w,1718);
+  x.font='700 30px '+en; x.letterSpacing="4px"; x.fillText("@nebuta_life",96,1772);
   // 上部の細いブランド
   x.fillStyle=OR; x.font='900 30px '+en; x.letterSpacing="8px"; x.fillText("NEBUTA LIFE",96,160);
   const url=cv.toDataURL("image/png");
